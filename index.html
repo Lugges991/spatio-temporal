@@ -1,33 +1,145 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Spatio-Temporal</title>
+</head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+<style>
+body, html {
+  height: 100%;
+  font-family: "Inconsolata", sans-serif;
+}
+
+.bgimg {
+  background-position: center;
+  background-size: cover;
+  background-image: url("./images/skate_sf.gif");
+  min-height: 75%;
+}
+
+.menu {
+  display: none;
+}
+</style>
+
+<!-- Header with image -->
+<header class="bgimg w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
+    <span class="w3-tag">Lucas Mahler</span>
+  </div>
+  <div class="w3-display-middle w3-center">
+    <span class="w3-text-black" style="font-size:90px">Spatio-Temporal Feature Extraction for Action Recognition in Videos</span>
+  </div>
+</header>
+
+
     <body>
 
-        <h1>Spatio-Temporal Feature Extraction for Action Recognition in Videos</h1>
+        <!-- About Container -->
+        <div class="w3-container" id="about">
+          <div class="w3-content" style="max-width:900px">
+            <h1 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Spatio-Temporal Feature Extraction for Action Recognition in Videos</span></h1>
+        <p>
+        This is a supplementary website for my Thesis <a href="./thesis_LucasMahler.pdf" target="_blank">"Spatio-Temporal Feature Extraction for Action Recognition in Videos"</a>
+        </p>
 
+        <h3 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">The SlowFast Architecture</span></h3>
+        <p>SlowFast is a two stream neural network architecture inspired by the visual processing system of the mammalian brain. It consists of a "slow" and a "fast" pathway, which in turn are separate neural networks.
+        The slow and fast pathway are connected via fuse connections in order to exchange information.<br>
+        The slow pathway is characterized by low temporal resolution but high channel capacity.
+        The fast pathway has high temporal resolution and lower channel capacity.
+        The backbones for the two pathways are 3D ResNets101 with Non-Local Blocks.<br>
+        Following is a schematic diagram of the architecture.
+        </p>
+
+        <img src="images/sf_arch.png" alt="SlowFast Architecture" style="width:50%">
+
+        <h3 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Spatial and Temporal Streams in the Brain:</span></h3>
+        <p>The visual cortex is responsible for visual perception in the brain. It occupies over 50% of the area of the cortex and is divided into several areas:</p>
+
+        <img src="images/visual_cortex.png" alt="SlowFast Architecture" style="width:50%">
+        <p> In the lateral geniculate nucleus a first division of incoming optical information from the optical nerve into separate streams happens.
+        The following image shows the laminar organization of the lateral geniculate nucleus (LGN). Layers 1-2 are magnocellular layers, layers 3-6 are parvocellularlayers.</p>
+        <img src="images/LGN.png" alt="SlowFast Architecture" style="width:50%">
+
+        <h1 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Model Analysis:</span></h1>
+        <p>The SlowFast model was trained using distributed synchronized stochasic gradient descent on a cluster of 128 GPUs. The trained model was evaluated on the Kinetics dataset. More info in the <a href="./thesis_LucasMahler.pdf" target="_blank">thesis</a>.
+
+        <h3 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Practical Analysis of the SlowFast Architecture:</span></h3>
+        <p>The following figure evaluates the runtime costs of different architectures on current NVIDIA GPUs, lower is better. Slow Fast has the lowest runtime cost on all devices.</p>
+        <img src="images/runtime_cost.png" alt="SlowFast Architecture" style="width:50%">
+        <p>The next figure plots top-1 accuracy against runtime cost, higher is better. Again, SlowFast is clearly outperforming its competitors.</p>
+        <img src="images/top1_gflops.png" alt="SlowFast Architecture" style="width:50%">
+        <p>Parameter utilization is an important metric to measure how well the network learns.
+        The next plot visualizes the accuracy per parameter per GFLOPS. </p>
+        <img src="images/acc_param_rtc.png" alt="SlowFast Architecture" style="width:50%">
+
+        <h2 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Methodical Analysis of the SlowFast Architecture:</span></h2>
+
+        <p>Analyzing the performance of a chosen architecture is not sufficient in order to properly evaluate its strengths and weaknesses.
+        Upcoming is a section that provides full resolution images for Chapter 7 of the thesis.</p>
+
+        <h2 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Weight Visualization:</span></h2>
+        <p>The slideshow displays the weights for the second convolution in the last bottleneck block of ResStage1-5</p>
          <!-- Slideshow container -->
         <div class="slideshow-container">
 
-          <!-- Full-width images with number and caption text -->
+            <!-- Full-width images with number and caption text -->
           <div class="mySlides fade">
-            <div class="numbertext">1 / 3</div>
-            <img src="./images/s1_pathway0_stem_conv_weights.png" style="width:100%">
+            <div class="numbertext">1 / 8</div>
+            <img src="./images/weights/s1_pathway0_stem_conv_weights.png" style="width:100%">
+            <div class="text">Slow Pathway ResStage1 Conv1 Weights</div>
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">2 / 8</div>
+            <img src="./images/weights/s1_pathway1_stem_conv_weights.png" style="width:100%">
+            <div class="text">Fast Pathway ResStage1 Conv1 Weights</div>
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">3 / 8</div>
+            <img src="./images/weights/s2_pathway0_res0_branch2_b_weights.png" style="width:100%">
+            <div class="text">Slow Pathway ResStage2 Conv2 Weights</div>
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">4 / 8</div>
+            <img src="./images/weights/s2_pathway1_res0_branch2_b_weights.png" style="width:100%">
+            <div class="text">Fast Pathway ResStage2 Conv2 Weights</div>
             <div class="text">Caption Text</div>
           </div>
 
           <div class="mySlides fade">
-            <div class="numbertext">2 / 3</div>
-            <img src="./images/s1_pathway1_stem_conv_weights.png" style="width:100%">
+            <div class="numbertext">5 / 8</div>
+            <img src="./images/weights/s4_pathway0_res22_branch2_b_weights.png" style="width:100%">
+            <div class="text">Slow Pathway ResStage4 Conv2 Weights</div>
             <div class="text">Caption Two</div>
           </div>
 
           <div class="mySlides fade">
-            <div class="numbertext">3 / 3</div>
-            <img src="./images/s1_pathway1_stem_conv_0000_weights.gif" style="width:100%">
+            <div class="numbertext">6 / 8</div>
+            <img src="./images/weights/s4_pathway1_res22_branch2_b_weights.png" style="width:100%">
+            <div class="text">Fast Pathway ResStage4 Conv2 Weights</div>
             <div class="text">Caption Three</div>
           </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">7 / 8</div>
+            <img src="./images/weights/s5_pathway0_res2_branch2_b_weights.png" style="width:100%">
+            <div class="text">Slow Pathway ResStage5 Conv2 Weights</div>
+            <div class="text">Caption Two</div>
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">8 / 8</div>
+            <img src="./images/weights/s5_pathway1_res2_branch2_b_weights.png" style="width:100%">
+            <div class="text">Fast Pathway ResStage5 Conv2 Weights</div>
+          </div>
+
 
           <!-- Next and previous buttons -->
           <a class="prev" onclick="plusSlides(-1,0)">&#10094;</a>
@@ -35,41 +147,355 @@
         </div>
         <br>
 
-        <h2>New Section:</h2>
+        <h2 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Neural Activatios:</span></h2>
+        <p>Using, among others, the following input video, activations have been determined.
+        <h3 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Input Video:</span></h3>
+        <img src="./images/skate.gif" style="width:50%">
+        <p>Upcoming are slideshows for the activations of the second convolutional layer of the last bottleneck block in ResStage1, 2, 4, 5.
+        Channels were selected by number of activations.</p>
 
+        <h4>Slow Pathway ResStage1:</h4>
         <div class="slideshow-container">
 
           <!-- Full-width images with number and caption text -->
           <div class="mySlides2 fade">
-            <div class="numbertext">1 / 3</div>
-            <img src="./images/s1_pathway0_stem_conv_weights.png" style="width:100%">
-            <div class="text">Caption Text</div>
+            <div class="numbertext">1 / 5</div>
+            <img src="./images/activations/s1p0/s1_pathway0_stem_conv_026.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage1 Activations of Filter 26</div>
           </div>
 
           <div class="mySlides2 fade">
-            <div class="numbertext">2 / 3</div>
-            <img src="./images/s1_pathway1_stem_conv_weights.png" style="width:100%">
-            <div class="text">Caption Two</div>
+            <div class="numbertext">2 / 5</div>
+            <img src="./images/activations/s1p0/s1_pathway0_stem_conv_005.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage1 Activations of Filter 5</div>
           </div>
 
+
           <div class="mySlides2 fade">
-            <div class="numbertext">3 / 3</div>
-            <img src="./images/s1_pathway1_stem_conv_0000_weights.gif" style="width:100%">
-            <div class="text">Caption Three</div>
+            <div class="numbertext">3 / 5</div>
+            <img src="./images/activations/s1p0/s1_pathway0_stem_conv_028.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage1 Activations of Filter 28</div>
           </div>
+
+
+          <div class="mySlides2 fade">
+            <div class="numbertext">4 / 5</div>
+            <img src="./images/activations/s1p0/s1_pathway0_stem_conv_031.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage1 Activations of Filter 31</div>
+          </div>
+
+
+          <div class="mySlides2 fade">
+            <div class="numbertext">5 / 5</div>
+            <img src="./images/activations/s1p0/s1_pathway0_stem_conv_039.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage1 Activations of Filter 39</div>
+          </div>
+
 
           <!-- Next and previous buttons -->
           <a class="prev" onclick="plusSlides(-1,1)">&#10094;</a>
           <a class="next" onclick="plusSlides(1,1)">&#10095;</a>
         </div>
 
+        <h4>FastPathway ResStage1:</h4>
+        <div class="slideshow-container">
+
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides3 fade">
+            <div class="numbertext">1 / 5</div>
+            <img src="./images/activations/s1p1/s1_pathway1_stem_conv_002.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage1 Activations of Filter 2</div>
+          </div>
+
+          <div class="mySlides3 fade">
+            <div class="numbertext">2 / 5</div>
+            <img src="./images/activations/s1p1/s1_pathway1_stem_conv_003.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage1 Activations of Filter 3</div>
+          </div>
+
+
+          <div class="mySlides3 fade">
+            <div class="numbertext">3 / 5</div>
+            <img src="./images/activations/s1p1/s1_pathway1_stem_conv_005.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage1 Activations of Filter 5</div>
+          </div>
+
+
+          <div class="mySlides3 fade">
+            <div class="numbertext">4 / 5</div>
+            <img src="./images/activations/s1p1/s1_pathway1_stem_conv_006.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage1 Activations of Filter 6</div>
+          </div>
+
+
+          <div class="mySlides3 fade">
+            <div class="numbertext">5 / 5</div>
+            <img src="./images/activations/s1p1/s1_pathway1_stem_conv_007.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage1 Activations of Filter 7</div>
+          </div>
+
+
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1,2)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1,2)">&#10095;</a>
+        </div>
+
+
+        <h4>Slow Pathway ResStage2:</h4>
+        <div class="slideshow-container">
+
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides4 fade">
+            <div class="numbertext">1 / 5</div>
+            <img src="./images/activations/s2p0/s2_pathway0_res0_branch2_241.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage2 Activations of Filter </div>
+          </div>
+          <div class="mySlides4 fade">
+            <div class="numbertext">2 / 5</div>
+            <img src="./images/activations/s2p0/s2_pathway0_res0_branch2_016.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage2 Activations of Filter 16</div>
+          </div>
+          <div class="mySlides4 fade">
+            <div class="numbertext">3 / 5</div>
+            <img src="./images/activations/s2p0/s2_pathway0_res0_branch2_035.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage2 Activations of Filter 35</div>
+          </div>
+          <div class="mySlides4 fade">
+            <div class="numbertext">4 / 5</div>
+            <img src="./images/activations/s2p0/s2_pathway0_res0_branch2_040.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage2 Activations of Filter 40</div>
+          </div>
+          <div class="mySlides4 fade">
+            <div class="numbertext">5 / 5</div>
+            <img src="./images/activations/s2p0/s2_pathway0_res0_branch2_075.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage2 Activations of Filter 75</div>
+          </div>
+
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1,3)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1,3)">&#10095;</a>
+        </div>
+
+        <h4>Fast Pathway ResStage2:</h4>
+        <div class="slideshow-container">
+
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides5 fade">
+            <div class="numbertext">1 / 5</div>
+            <img src="./images/activations/s2p1/s2_pathway1_res0_branch2_000.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage2 Activations of Filter 0</div>
+          </div>
+          <div class="mySlides5 fade">
+            <div class="numbertext">2 / 5</div>
+            <img src="./images/activations/s2p1/s2_pathway1_res0_branch2_008.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage2 Activations of Filter 8</div>
+          </div>
+          <div class="mySlides5 fade">
+            <div class="numbertext">3 / 5</div>
+            <img src="./images/activations/s2p1/s2_pathway1_res0_branch2_015.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage2 Activations of Filter 15</div>
+          </div>
+          <div class="mySlides5 fade">
+            <div class="numbertext">4 / 5</div>
+            <img src="./images/activations/s2p1/s2_pathway1_res0_branch2_017.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage2 Activations of Filter 17</div>
+          </div>
+          <div class="mySlides5 fade">
+            <div class="numbertext">5 / 5</div>
+            <img src="./images/activations/s2p1/s2_pathway1_res0_branch2_018.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage2 Activations of Filter 18</div>
+          </div>
+
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1,4)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1,4)">&#10095;</a>
+        </div>
+
+
+
+        <h4>Slow Pathway ResStage4:</h4>
+        <div class="slideshow-container">
+
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides6 fade">
+            <div class="numbertext">1 / 5</div>
+            <img src="./images/activations/s4p0/s4_pathway0_res22_branch2_086.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage4 Activations of Filter 86</div>
+          </div>
+          <div class="mySlides6 fade">
+            <div class="numbertext">2 / 5</div>
+            <img src="./images/activations/s4p0/s4_pathway0_res22_branch2_218.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage4 Activations of Filter 218</div>
+          </div>
+
+          <div class="mySlides6 fade">
+            <div class="numbertext">3 / 5</div>
+            <img src="./images/activations/s4p0/s4_pathway0_res22_branch2_432.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage4 Activations of Filter 432</div>
+          </div>
+
+          <div class="mySlides6 fade">
+            <div class="numbertext">4 / 5</div>
+            <img src="./images/activations/s4p0/s4_pathway0_res22_branch2_548.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage4 Activations of Filter 548</div>
+          </div>
+
+          <div class="mySlides6 fade">
+            <div class="numbertext">5 / 5</div>
+            <img src="./images/activations/s4p0/s4_pathway0_res22_branch2_790.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage4 Activations of Filter 790</div>
+          </div>
+
+
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1,5)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1,5)">&#10095;</a>
+        </div>
+
+        <h4>Fast Pathway ResStage4:</h4>
+        <div class="slideshow-container">
+
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides7 fade">
+            <div class="numbertext">1 / 5</div>
+            <img src="./images/activations/s4p1/s4_pathway1_res22_branch2_006.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage4 Activations of Filter 6</div>
+          </div>
+          <div class="mySlides7 fade">
+            <div class="numbertext">2 / 5</div>
+            <img src="./images/activations/s4p1/s4_pathway1_res22_branch2_021.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage4 Activations of Filter 21</div>
+          </div>
+
+          <div class="mySlides7 fade">
+            <div class="numbertext">3 / 5</div>
+            <img src="./images/activations/s4p1/s4_pathway1_res22_branch2_054.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage4 Activations of Filter 54</div>
+          </div>
+
+          <div class="mySlides7 fade">
+            <div class="numbertext">4 / 5</div>
+            <img src="./images/activations/s4p1/s4_pathway1_res22_branch2_092.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage4 Activations of Filter 92</div>
+          </div>
+
+          <div class="mySlides7 fade">
+            <div class="numbertext">5 / 5</div>
+            <img src="./images/activations/s4p1/s4_pathway1_res22_branch2_115.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage4 Activations of Filter 115</div>
+          </div>
+
+
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1,6)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1,6)">&#10095;</a>
+        </div>
+
+        <h4>Slow Pathway ResStage5:</h4>
+        <div class="slideshow-container">
+
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides8 fade">
+            <div class="numbertext">1 / 5</div>
+            <img src="./images/activations/s5p0/s5_pathway0_res2_branch2_1177.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage5 Activations of Filter 1177</div>
+          </div>
+          <div class="mySlides8 fade">
+            <div class="numbertext">2 / 5</div>
+            <img src="./images/activations/s5p0/s5_pathway0_res2_branch2_120.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage5 Activations of Filter 120</div>
+          </div>
+
+          <div class="mySlides8 fade">
+            <div class="numbertext">3 / 5</div>
+            <img src="./images/activations/s5p0/s5_pathway0_res2_branch2_1783.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage5 Activations of Filter 1783</div>
+          </div>
+
+          <div class="mySlides8 fade">
+            <div class="numbertext">4 / 5</div>
+            <img src="./images/activations/s5p0/s5_pathway0_res2_branch2_514.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage5 Activations of Filter 514</div>
+          </div>
+
+          <div class="mySlides8 fade">
+            <div class="numbertext">5 / 5</div>
+            <img src="./images/activations/s5p0/s5_pathway0_res2_branch2_819.gif" style="width:100%">
+            <div class="text">Slow Pathway ResStage5 Activations of Filter 819</div>
+          </div>
+
+
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1,7)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1,7)">&#10095;</a>
+        </div>
+
+
+        <h4>Fast Pathway ResStage5:</h4>
+        <div class="slideshow-container">
+
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides9 fade">
+            <div class="numbertext">1 / 5</div>
+            <img src="./images/activations/s5p1/s5_pathway1_res2_branch2_009.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage5 Activations of Filter 9</div>
+          </div>
+          <div class="mySlides9 fade">
+            <div class="numbertext">2 / 5</div>
+            <img src="./images/activations/s5p1/s5_pathway1_res2_branch2_164.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage5 Activations of Filter 164</div>
+          </div>
+
+          <div class="mySlides9 fade">
+            <div class="numbertext">3 / 5</div>
+            <img src="./images/activations/s5p1/s5_pathway1_res2_branch2_173.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage5 Activations of Filter 173</div>
+          </div>
+
+          <div class="mySlides9 fade">
+            <div class="numbertext">4 / 5</div>
+            <img src="./images/activations/s5p1/s5_pathway1_res2_branch2_190.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage5 Activations of Filter 190</div>
+          </div>
+
+          <div class="mySlides9 fade">
+            <div class="numbertext">5 / 5</div>
+            <img src="./images/activations/s5p1/s5_pathway1_res2_branch2_221.gif" style="width:100%">
+            <div class="text">Fast Pathway ResStage5 Activations of Filter 221</div>
+          </div>
+
+
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1,8)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1,8)">&#10095;</a>
+        </div>
+
+        <h2 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Detection Inference Example:</span></h2>
+
+        <p>This video shows a SlowFast inference run </p>
+            <img src="./images/skate_sf.gif" style="width:100%">
+
+
+          </div>
+        </div>
+
+
+
+
     </body>
     <script>
-        var slideIndex = [1,1];
+        var slideIndex = [1,1,1,1,1,1,1,1,1];
         /* Class the members of each slideshow group with different CSS classes */
-        var slideId = ["mySlides", "mySlides2"]
+        var slideId = ["mySlides", "mySlides2", "mySlides3", "mySlides4", "mySlides5", "mySlides6", "mySlides7", "mySlides8", "mySlides9"]
         showSlides(1, 0);
         showSlides(1, 1);
+        showSlides(1, 2);
+        showSlides(1, 3);
+        showSlides(1, 4);
+        showSlides(1, 5);
+        showSlides(1, 6);
+        showSlides(1, 7);
+        showSlides(1, 8);
 
         function plusSlides(n, no) {
           showSlides(slideIndex[no] += n, no);
